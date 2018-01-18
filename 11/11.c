@@ -68,6 +68,8 @@ void pushBack(const double value)
 		exit(0);
 	}
 		
+	vector = (double *)realloc((void *)vector,(capacity)*sizeof(double));
+	
 	vector[size-1] = value;
 	
 }
@@ -89,16 +91,36 @@ void popBack(void)
 		printf("error: realloc gone wrong!\n");
 		exit(0);
 	}
+	vector = (double *)realloc((void *)vector,(capacity)*sizeof(double));
+}
+
+// print function
+void print_vector(double * vector)
+{
+	for(int i = 0; i < size; i++)
+	{
+		printf("vector[%d] = %lf\n", i, vector[i]);
+	}
 }
 
 int main(int argc, char *argv[])
 {
 	double start_vector[argc];
-	for(int i = 0; i < argc; i++)
+	for(int i = 0; i < argc ; i++)
 	{
 		start_vector[i] = atoi(argv[i]);
 	}
+	printf("peep\n");
+	createVector(12, start_vector);
+	print_vector(vector);
 	
+	const unsigned int asdf = 3;
+	printf("using at: %lf", at(asdf));
+	
+	//pushBack(14);
+	print_vector(vector);
+	//popBack();
+	print_vector(vector);
 	
 	return 0;
 }
