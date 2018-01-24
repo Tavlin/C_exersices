@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+// struct says: "DON'T ASSSUME MY SIZE"
+
 // capacity == max number of elements that fit in the allocated storage
 // size == #elements stored in the vector
 long int capacity, size;
@@ -37,12 +40,14 @@ void createVector(const unsigned int numberOfElements, /*const*/ double* value)
 void destroyVector(void)
 {
 	free(vector);
+	size = capacity = 0;
+	vector = NULL;
 }
 
 // retrieve content with boundary check
 double at(const unsigned int index)
 {
-	if(index > size)
+	if(index >= size)
 	{
 		printf("index is bigger then vector size");
 		exit(0);
@@ -54,33 +59,38 @@ double at(const unsigned int index)
 // to add an element at the end
 void pushBack(const double value)
 {	
+	
 	size += 1;
 	
 	if(capacity <= size)
 	{
 		capacity *= 2;
-	}
+		printf("size = %ld\t capacity = %ld\n", size, capacity);
 	
-	if((vector = (double *)realloc((void *)vector,
-	(capacity)*sizeof(double))) == NULL)
-	{
-		printf("error: realloc gone wrong!\n");
-		exit(0);
+	double* new_vector;
+	new_vector = (double *)realloc(vector, capacity*sizeof(double));
+		if(new_vector == NULL)
+		{
+			printf("error: realloc gone wrong!\n");
+			exit(0);
+		}
+		vector = new_vector;
 	}
-		
-	vector = (double *)realloc((void *)vector,(capacity)*sizeof(double));
-	
-	vector[size-1] = value;
+	//free(new_vector);	
+
+	//vector[size-1] = value;
 	
 }
 
 //to remove an element at the end
 void popBack(void)
-{
-	free(&vector[size-1]);
+{	
+	
+	//vector[size-1] = NULL; // NULL type is void, values of pointer are double :c
+	//free(&vector[size-1]);
 	size -= 1;
 	
-	while(capacity/2 >= size)
+	while((capacity/2) > size)
 	{
 		capacity /= 2;
 	}
@@ -115,11 +125,22 @@ int main(int argc, char *argv[])
 	print_vector(vector);
 	
 	const unsigned int asdf = 3;
-	printf("using at: %lf", at(asdf));
+	printf("using at %d: %lf\n", asdf, at(asdf));
 	
-	//pushBack(14);
-	print_vector(vector);
-	//popBack();
+	/*
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	pushBack(14);
+	print_vector(vector);*/
+	popBack();
 	print_vector(vector);
 	
 	return 0;
