@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define TYPE int
+#define TYPE double
 
 /*
 YDFU = You done fucked up
@@ -78,8 +78,8 @@ void pushBack(struct Vector* myVector, const TYPE value)
     {
     	myVector -> vector = newVector;
     }
-    myVector -> vector[myVector -> size++] = value;
 	}
+	myVector -> vector[(myVector -> size)++] = value;
 }
 
 void popBack(struct Vector * myVector)
@@ -90,8 +90,35 @@ void popBack(struct Vector * myVector)
 	}
 }
 
+unsigned int sizeOf(const struct Vector myVector)
+{
+	return myVector.size;
+}
+
+unsigned int capacityOf(const struct Vector myVector)
+{
+	return myVector.capacity;
+}
+
+TYPE * getRawPointer(const struct Vector myVector)
+{
+	return myVector.vector;
+}
+
 int main(void)
 {
-
+	struct Vector hector = createVector(1,1);
+	struct Vector* phector = &hector;
+	
+	int i = 1;
+	
+	do
+	{
+		pushBack(phector, at(hector, i-1) + pow((i+1),-2));
+		printf("capacity = %d\n", capacityOf(hector));
+		i++;
+		
+	} while((phector -> vector[phector -> size-1] - 
+	phector -> vector[phector -> size-2]) > 0.000001);
 	return 0;
 }
