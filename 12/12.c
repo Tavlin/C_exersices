@@ -115,7 +115,8 @@ int main(void)
 	do
 	{
 		pushBack(phector, at(hector, i-1) + pow((i+1),-2));
-		printf("capacity = %d\n", capacityOf(hector));
+		printf("%lf ", (at(hector, i-1) + pow((i+1),-2)));
+		printf("%d\n", capacityOf(hector));
 		i++;
 		
 	} while((phector -> vector[phector -> size-1] - 
