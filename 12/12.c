@@ -44,6 +44,7 @@ struct Vector createVector(const unsigned int numberOfElements, const TYPE value
 void destroyVector(struct Vector* toBeDestroyed)
 {
 	 free(toBeDestroyed -> vector);
+	 toBeDestroyed -> vector = NULL;
    toBeDestroyed -> size =  toBeDestroyed -> capacity = 0;     
 }
 

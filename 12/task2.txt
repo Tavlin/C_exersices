@@ -1,0 +1,83 @@
+Exercise 2 [Exam like questions]
+(i)  What is an array?  What have the elements of a given array in common?  How 
+are they distributed in memory?
+
+Pointer to the first element. They all have the same type. They're sequential.
+
+(ii)  How much space in memory is occupied by an array declared as /*type*/ 
+arr[N]; ? What can you say about the type and initialization of the variable N 
+which stores the size of arr?
+
+N*sizeof(*type*), N should be an unsigned integer.
+
+(iii)  List the different ways to initialize a character array with the string
+"Hello".  How many elements has the array?  Given an array, how can you print 
+its size to the screen?  Make an example for the usage of scanf to read some 
+given string.
+
+char s[6];
+s[0] = 'H'; ...
+
+or 
+
+char d[6] = "Hello";
+char d[6] = {'H','e','l','l','o','\0'};
+
+strlenght(array); or sizeof(a)/sizeof(a[0]);
+size is 6.
+
+(iv)  When is the memory,  which was reserved for an array,  automatically freed
+throughout program execution?  Can it be manually freed?  Through which 
+functions can you achieve dynamic memory allocation and deallocation?
+
+when going out of the scope where it is defined.
+only when you used malloc.
+malloc realloc and free.
+
+(v)  State whether the following are true or false and, in the latter case, 
+explain why.
+
+(a)  “Array elements” outside the bounds of an array cannot be referenced with 
+the access operator.
+
+false, i.e printf(); is looking for \0 on strings so if there is no \0.
+
+(b)  Variables of different types can be stored in the same array.
+
+false, cuz array has a fixed type
+
+(c)  An array index can be of data type float.
+
+False it has to be unsigned int althought coersion
+
+(d)  An individual array element that is passed to a function as an argument of 
+the form a[i] and modified in the called function will not retain the modified 
+value in the calling scope.
+
+true
+
+(e)  If an initializers list contains more initializers than there are elements 
+in the array, those in excess are not considered by the compiler.
+
+false, it does not compile
+
+(f)  If the number of initializers in an initializer list is smaller than the 
+number of elements in the array, the remaining elements are initialized to the 
+last value in the list of initializers.
+
+false, it's 0-elements
+
+(vi)  Define a function which takes an array of integers and its size as 
+parameters and return the sum of the elements contained in the array.  Use the 
+const qualifier properly.
+
+int sum(int* a, const int size)
+{
+	int sum = 0;
+	for(int i = 0; i< size; i++)
+	{
+		sum += a[i];
+	}
+	return sum;
+}
+
